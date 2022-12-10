@@ -10,7 +10,7 @@
 // $ ./solve < input.txt
 // 10718
 
-int score[3][3] = {
+int score[3][3] = {          //  R   P   S
     { 1 + 3, 2 + 6, 3 + 0 }, // AX, AY, AZ
     { 1 + 0, 2 + 3, 3 + 6 }, // BX, BY, BZ
     { 1 + 6, 2 + 0, 3 + 3 }  // CX, CY, CZ
