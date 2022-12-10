@@ -1,4 +1,4 @@
-# Adventofcode
+# Advent of Code
 
 ## Compile
 <pre>$ gcc -o solve solve.c</pre>
