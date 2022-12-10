@@ -7,6 +7,9 @@
 // $ ./solve nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg => 10
 // $ ./solve zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw => 11
 
+// $ ./solve `cat input.txt`
+// 1855
+
 int main(int argc, char *argv[]) {
     char past[4];
     int found = 0;
