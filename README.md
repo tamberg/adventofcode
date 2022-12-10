@@ -1,7 +1,7 @@
 # Adventofcode
 
 ## Compile
-```$ gcc -o solve solve.c```
+<pre>$ gcc -o solve solve.c</pre>
 
 ## Run
-See *yyyy/dd/solve.c*
+See `yyyy/dd/solve.c`
