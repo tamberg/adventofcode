@@ -3,8 +3,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// $ ./solve < input.txt
+// https://adventofcode.com/2022/day/1
+
+// $ ./solve < test0.txt
 // 24000 (4th)
+
+// $ ./solve < input.txt
+// 69693 (10th)
 
 // input = { items '\n' } items '\EOF'
 // items = { value '\n' }
