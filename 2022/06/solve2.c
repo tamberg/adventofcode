@@ -14,6 +14,9 @@
 // $ ./solve2 14 nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg => 29
 // $ ./solve2 14 zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw => 26
 
+// $ ./solve2 14 `cat input.txt`
+// 3256
+
 int main(int argc, char *argv[]) {
     int n = atoi(argv[1]);
     char past[n];
