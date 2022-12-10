@@ -3,10 +3,16 @@
 
 // https://adventofcode.com/2022/day/6
 
-// $ ./solve 4 bvwbjplbgvbhsrlpgdmjqwftvncz => 5
-// $ ./solve 4 nppdvjthqldpwncqszvftbrmjlhg => 6
-// $ ./solve 4 nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg => 10
-// $ ./solve 4 zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw => 11
+// $ ./solve2 4 bvwbjplbgvbhsrlpgdmjqwftvncz => 5
+// $ ./solve2 4 nppdvjthqldpwncqszvftbrmjlhg => 6
+// $ ./solve2 4 nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg => 10
+// $ ./solve2 4 zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw => 11
+
+// $ ./solve2 14 mjqjpqmgbljsphdztnvjfqwrcgsmlb => 19
+// $ ./solve2 14 bvwbjplbgvbhsrlpgdmjqwftvncz => 23
+// $ ./solve2 14 nppdvjthqldpwncqszvftbrmjlhg => 23
+// $ ./solve2 14 nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg => 29
+// $ ./solve2 14 zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw => 26
 
 int main(int argc, char *argv[]) {
     int n = atoi(argv[1]);
