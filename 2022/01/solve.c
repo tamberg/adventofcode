@@ -5,7 +5,7 @@
 
 // https://adventofcode.com/2022/day/1
 
-// $ ./solve < test0.txt
+// $ ./solve < test.txt
 // 24000 (4th)
 
 // $ ./solve < input.txt
