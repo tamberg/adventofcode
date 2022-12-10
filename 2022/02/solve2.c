@@ -8,17 +8,12 @@
 // 12
 
 // $ ./solve < input.txt
-// ?
+// 14652
 
-// In the first round, your opponent will choose Rock (A), and you need the round to end in a draw (Y), so you also choose Rock. This gives you a score of 1 + 3 = 4.
-// In the second round, your opponent will choose Paper (B), and you choose Rock so you lose (X) with a score of 1 + 0 = 1.
-// In the third round, you will defeat your opponent's Scissors with Rock for a score of 1 + 6 = 7.
-// total score of 12
-
-int score[3][3] = {
-    { 1 + 3, 2 + 6, 3 + 0 }, // AX, AY, AZ
+int score[3][3] = {          //  L   D   W
+    { 3 + 0, 1 + 3, 2 + 6 }, // AX, AY, AZ
     { 1 + 0, 2 + 3, 3 + 6 }, // BX, BY, BZ
-    { 1 + 6, 2 + 0, 3 + 3 }  // CX, CY, CZ
+    { 2 + 0, 3 + 3, 1 + 6 }  // CX, CY, CZ
 };
 
 char read_char() {
@@ -40,11 +35,11 @@ int main() {
     do {
         char opp = read_char();
         char spc = read_char();
-        char you = read_char();
+        char out = read_char();
         ch = read_char();
         if (ch == '\n') {
-            int s = score[opp - 'A'][you - 'X'];
-            printf("%c %c => %d\n", opp, you, s);
+            int s = score[opp - 'A'][out - 'X'];
+            printf("%c %c => %d\n", opp, out, s);
             res = res + s;
         }
     } while (ch == '\n');
