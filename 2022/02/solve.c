@@ -2,15 +2,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// A for Rock, B for Paper, and C for Scissors
-// X for Rock, Y for Paper, and Z for Scissors
-// 1 for Rock, 2 for Paper, and 3 for Scissors
-// 0 if you lost, 3 if the round was a draw, and 6 if you won
+// https://adventofcode.com/2022/day/2
 
-// A Y // 2 because you chose Paper + 6 because you won
-// B X // a loss for you with a score of 1 (1 + 0)
-// C Z // both players choosing Scissors, giving you a score of 3 + 3 = 6
-// total score of 15 (8 + 1 + 6)
+// $ ./solve < test.txt
+// 15
+
+// $ ./solve < input.txt
+// 10718
 
 int score[3][3] = {
     { 1 + 3, 2 + 6, 3 + 0 }, // AX, AY, AZ
