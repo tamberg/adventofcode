@@ -59,12 +59,21 @@ int read_items(int *sum) {
     return ch;
 }
 
-void insert_elve(int sum) {
-    if (sum > 0) {
-        struct elve *e = malloc(sizeof(struct elve));
-        e->sum = sum;
-        e->next = elves;
-        elves = e;
+void insert_sorted(int sum) {
+    struct elve *p = elves;
+    struct elve *e = elves;
+    while (e != NULL && e->sum > sum) {
+        p = e;
+        e = e->next;
+    }
+    assert(e == NULL || e->sum <= sum);
+    struct elve *n = malloc(sizeof(struct elve));
+    n->sum = sum;
+    n->next = e;
+    if (p != NULL && p != e) {
+        p->next = n;
+    } else {
+        elves = n;
     }
 }
 
@@ -73,7 +82,7 @@ void read_input() {
     int sum;
     do {
         ch = read_items(&sum);
-        insert_elve(sum);
+        insert_sorted(sum);
     } while (ch == '\n');
     assert(ch == 0);
 }
