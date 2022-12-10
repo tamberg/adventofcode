@@ -5,11 +5,11 @@
 
 // https://adventofcode.com/2022/day/1
 
-// $ ./solve2 < test.txt
+// $ ./solve2 3 < test.txt
 // 45000
 
-// $ ./solve2 < input.txt
-// ?
+// $ ./solve2 3 < input.txt
+// 200945
 
 // input = { items '\n' } items '\EOF'
 // items = { value '\n' }
