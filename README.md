@@ -4,4 +4,4 @@
 <pre>$ gcc -o solve solve.c</pre>
 
 ## Run
-See `yyyy/dd/solve.c`
+See comments in solve.c
