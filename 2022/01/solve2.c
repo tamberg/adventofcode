@@ -66,7 +66,6 @@ void insert_sorted(int sum) {
         p = e;
         e = e->next;
     }
-    assert(e == NULL || e->sum <= sum);
     struct elve *n = malloc(sizeof(struct elve));
     n->sum = sum;
     n->next = e;
@@ -87,16 +86,16 @@ void read_input() {
     assert(ch == 0);
 }
 
-int main() {
-//    int n = 3;
+int main(int argc, char *argv[]) {
+    int n = atoi(argv[1]);
+    int top = 0;
     read_input();
     struct elve *e = elves;
-    while (e != NULL) {
-        printf("%d\n", e->sum);
+    while (e != NULL && n > 0) {
+        top += e->sum;
         e = e->next;
+        n--;
     }
-//    char *th[4] = { "st", "nd", "rd", "th" };
-//    printf("%d (%d%s, )\n", top[i], pos[i] + 1, th[pos[i] > 2 ? 3 : pos[i]]);
-//    printf("=> %d\n", sum);
+    printf("%d\n", top);
     return 0;
 }
