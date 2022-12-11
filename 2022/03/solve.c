@@ -81,6 +81,7 @@ int main() {
                 printf("%d (%c)\n", prio, index_to_char(i));
             }
         }
+        assert(found);
         ch = read_char();
     }
     printf("%d\n", total);
