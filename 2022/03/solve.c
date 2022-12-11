@@ -66,7 +66,7 @@ int main() {
             if (items_max_pos[i] != -1 &&
                 items_min_pos[i] < cut &&
                 items_max_pos[i] >= cut) {
-                printf("%c\n", i < 26 ? 'a' + i : 'A' + i);
+                printf("%c\n", i < 26 ? 'a' + i : ('A' + i) - 26);
             }
         }
         ch = read_char();
