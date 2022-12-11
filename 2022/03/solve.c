@@ -68,7 +68,8 @@ int main() {
             ch = read_char();
             pos++;
         }
-        for (int i = 0; i < 2 * 26; i++) {
+        int found = 0;
+        for (int i = 0; !found && i < 2 * 26; i++) {
             int cut = pos / 2;
             if (items_max_pos[i] != -1 &&
                 items_min_pos[i] < cut &&
@@ -76,6 +77,7 @@ int main() {
             {
                 int prio = i + 1;
                 total += prio;
+                found = 1;
                 printf("%d (%c)\n", prio, index_to_char(i));
             }
         }
