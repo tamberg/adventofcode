@@ -36,6 +36,21 @@ int max(int a, int b) {
     return a > b ? a : b;
 }
 
+int char_to_index(char ch) {
+    int i;
+    if ('a' <= ch && ch <= 'z') {
+        i = ch - 'a';
+    } else {
+        assert('A' <= ch && ch <= 'Z');
+        i = ch - 'A' + 26;
+    }
+    return i;
+}
+
+char index_to_char(int i) {
+    return i < 26 ? 'a' + i : 'A' + i - 26;
+}
+
 int main() {
     int total = 0;
     char ch = read_char();
@@ -46,14 +61,7 @@ int main() {
             items_max_pos[i] = -1;
         }
         while (ch != '\n') {
-            int i;
-            if ('a' <= ch && ch <= 'z') {
-                i = ch - 'a';
-            } else {
-                assert('A' <= ch && ch <= 'Z');
-                i = ch - 'A' + 26;
-            }
-            assert(0 <= i && i < 2 * 26);
+            int i = char_to_index(ch);
             items_min_pos[i] = min(pos, items_min_pos[i]);
             items_max_pos[i] = max(pos, items_max_pos[i]);
             ch = read_char();
@@ -66,7 +74,7 @@ int main() {
                 items_max_pos[i] >= cut) {
                 int prio = i + 1;
                 total += prio;
-                printf("%d (%c)\n", prio, i < 26 ? 'a' + i : 'A' + i - 26);
+                printf("%d (%c)\n", prio, index_to_char(i));
             }
         }
         ch = read_char();
