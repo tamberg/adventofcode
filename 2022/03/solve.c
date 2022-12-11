@@ -35,6 +35,7 @@ int char_to_index(char ch) {
 }
 
 char index_to_char(int i) {
+    assert(0 <= i && i < 2 * 26);
     return i < 26 ? 'a' + i : 'A' + i - 26;
 }
 
