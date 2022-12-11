@@ -4,13 +4,17 @@
 
 // https://adventofcode.com/2022/day/3
 
-// $ ./solve vJrwpWtwJgWrhcsFMMfFFhFp => vJrwpWtwJgWr|hcsFMMfFFhFp => p
-// $ ./solve jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL => jqHRNqRjqzjGDLGL|rsFMfFZSrLrFZsSL => L
-// $ ./solve PmmdzqPrVvPwwTWBwg => PmmdzqPrV|vPwwTWBwg => P
+// $ ./solve < test.txt
+// vJrwpWtwJgWrhcsFMMfFFhFp => vJrwpWtwJgWr|hcsFMMfFFhFp => p => 16
+// jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL => jqHRNqRjqzjGDLGL|rsFMfFZSrLrFZsSL => L => 38
+// PmmdzqPrVvPwwTWBwg => PmmdzqPrV|vPwwTWBwg => P => 42
+// ...
+// 16 + 38 + 42 + ... => 157
 
-// $ ./solve `cat input.txt`
+// $ ./solve <= input.txt
 
-int items[2 * 26][2 * 26]; // index: a - z, A - Z; elements: min, max position
+int items_min_pos[2 * 26]; // a - z, A - Z
+int items_max_pos[2 * 26];
 
 char read_char() {
     char buf[1];
@@ -28,8 +32,19 @@ char read_char() {
 int main() {
     char ch = read_char();
     while (ch != 0) {
+        int pos = 0;
         while (ch != '\n') {
-            
+            int i = ch - 'a';
+            items_min_pos[i] = pos < items_min_pos[i] ? pos : items_min_pos[i];
+            items_max_pos[i] = pos > items_max_pos[i] ? pos : items_max_pos[i];
+            pos++;
+        }
+        for (int j = 0; j < 2 * 26; j++) {
+            int cut = pos / 2;
+            if (items_min_pos[j] < cut &&
+                items_max_pos[j] >= cut) {
+                printf("%c\n", 'a' + j);
+            }
         }
     }
 }
