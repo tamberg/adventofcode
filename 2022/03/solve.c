@@ -10,7 +10,7 @@
 // 157
 
 // $ ./solve <= input.txt
-// ?
+// 7980
 
 int items_min_pos[2 * 26]; // a - z, A - Z
 int items_max_pos[2 * 26];
