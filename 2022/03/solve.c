@@ -7,13 +7,10 @@
 // https://adventofcode.com/2022/day/3
 
 // $ ./solve < test.txt
-// vJrwpWtwJgWrhcsFMMfFFhFp => vJrwpWtwJgWr|hcsFMMfFFhFp => p => 16
-// jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL => jqHRNqRjqzjGDLGL|rsFMfFZSrLrFZsSL => L => 38
-// PmmdzqPrVvPwwTWBwg => PmmdzqPrV|vPwwTWBwg => P => 42
-// ...
-// 16 + 38 + 42 + ... => 157
+// 157
 
 // $ ./solve <= input.txt
+// ?
 
 int items_min_pos[2 * 26]; // a - z, A - Z
 int items_max_pos[2 * 26];
@@ -40,6 +37,7 @@ int max(int a, int b) {
 }
 
 int main() {
+    int total = 0;
     char ch = read_char();
     while (ch != 0) {
         int pos = 0;
@@ -66,9 +64,12 @@ int main() {
             if (items_max_pos[i] != -1 &&
                 items_min_pos[i] < cut &&
                 items_max_pos[i] >= cut) {
-                printf("%c\n", i < 26 ? 'a' + i : ('A' + i) - 26);
+                int prio = i + 1;
+                total += prio;
+                printf("%d (%c)\n", prio, i < 26 ? 'a' + i : 'A' + i - 26);
             }
         }
         ch = read_char();
     }
+    printf("%d\n", total);
 }
