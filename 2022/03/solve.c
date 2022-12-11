@@ -72,7 +72,8 @@ int main() {
             int cut = pos / 2;
             if (items_max_pos[i] != -1 &&
                 items_min_pos[i] < cut &&
-                items_max_pos[i] >= cut) {
+                items_max_pos[i] >= cut)
+            {
                 int prio = i + 1;
                 total += prio;
                 printf("%d (%c)\n", prio, index_to_char(i));
