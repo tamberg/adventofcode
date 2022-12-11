@@ -49,13 +49,6 @@ int main() {
         assert(ch == '-');
         ch = read_value(&values[3]);
         assert(ch == '\n' || ch == 0);
-
-// 0-1
-//  2-3
-
-//  0-1
-// 2-3
-
         if (values[0] <= values[3] && values[1] >= values[2] ||
             values[2] <= values[1] && values[3] >= values[0]) {
              printf("^\n");
