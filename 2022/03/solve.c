@@ -4,11 +4,13 @@
 
 // https://adventofcode.com/2022/day/3
 
-// vJrwpWtwJgWrhcsFMMfFFhFp => vJrwpWtwJgWr|hcsFMMfFFhFp => p
-// jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL => jqHRNqRjqzjGDLGL|rsFMfFZSrLrFZsSL => L
-// PmmdzqPrVvPwwTWBwg => PmmdzqPrV|vPwwTWBwg => P
+// $ ./solve vJrwpWtwJgWrhcsFMMfFFhFp => vJrwpWtwJgWr|hcsFMMfFFhFp => p
+// $ ./solve jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL => jqHRNqRjqzjGDLGL|rsFMfFZSrLrFZsSL => L
+// $ ./solve PmmdzqPrVvPwwTWBwg => PmmdzqPrV|vPwwTWBwg => P
 
-int items[2 * 26]; // a - z, A - Z
+// $ ./solve `cat input.txt`
+
+int items[2 * 26][2 * 26]; // index: a - z, A - Z; elements: min, max position
 
 char read_char() {
     char buf[1];
@@ -24,5 +26,10 @@ char read_char() {
 }
 
 int main() {
-       
+    char ch = read_char();
+    while (ch != 0) {
+        while (ch != '\n') {
+            
+        }
+    }
 }
