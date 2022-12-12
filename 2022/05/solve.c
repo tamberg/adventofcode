@@ -51,8 +51,7 @@ char read_value(int *value) {
 }
 
 void stack_create(int j) {
-    //printf("stack_create(%d)\n", j);
-    // TODO: refactor?
+    // sorry :)
     struct stack *s = malloc(sizeof(struct stack));
     s->top = NULL;
     s->next = NULL;
@@ -71,7 +70,6 @@ void stack_create(int j) {
 }
 
 struct stack *stack_get(int j) {
-    //printf("stack_get(%d)\n", j);
     struct stack *s = stacks;
     while (j > 0) {
         assert(s != NULL);
@@ -82,7 +80,6 @@ struct stack *stack_get(int j) {
 }
 
 void stack_append_crate(int j, char type) {
-    //printf("stack_append_crate(%d, '%c')\n", j, type);
     struct stack *s = stack_get(j);
     struct crate *c = malloc(sizeof(struct crate));
     c->type = type;
@@ -99,7 +96,6 @@ void stack_append_crate(int j, char type) {
 }
 
 void stack_print() {
-    //printf("stack_print()\n");
     int i = 0;
     struct stack *s = stacks;
     while(s != NULL) {
@@ -115,8 +111,17 @@ void stack_print() {
     }
 }
 
+void stack_print_top() {
+    struct stack *s = stacks;
+    while(s != NULL) {
+        assert(s->top != NULL);
+        printf("%c", s->top->type);
+        s = s->next;
+    }
+    printf("\n");
+}
+
 void stack_move_crate(int from, int to) {
-    //printf("stack_move_crate(%d, %d)\n", from, to);
     assert(from != to);
     struct stack *fs = stack_get(from);
     struct stack *ts = stack_get(to);
@@ -129,7 +134,6 @@ void stack_move_crate(int from, int to) {
 }
 
 void stack_move_crates(int n, int from, int to) {
-    //printf("stack_move_crates(%d, %d, %d)\n", n, from, to);
     while (n > 0) {
         stack_move_crate(from, to);
         n--;
@@ -179,4 +183,5 @@ int main() {
         }
         ch = read_char();
     }
+    stack_print_top();
 }
