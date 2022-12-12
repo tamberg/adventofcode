@@ -6,10 +6,10 @@
 // https://adventofcode.com/2022/day/5
 
 // $ ./solve < test.txt
-// ?
+// CMZ
 
 // $ ./solve < input.txt
-// ?
+// CVCWCRTVQ
 
 struct crate { char type; struct crate *next; };
 struct stack { struct crate *top; struct stack *next; };
