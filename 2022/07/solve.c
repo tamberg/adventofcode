@@ -62,8 +62,6 @@ struct node {
     struct node *nodes[N];
 };
 
-struct node *root;
-
 char read_char() {
     char buf[1];
     int r = read(STDIN_FILENO, buf, 1);
@@ -104,19 +102,39 @@ char read_name(char *name, int n) {
 
 struct node *find(struct node *dir, char *name) { // TODO: add type?
     printf("find(%s, %s)\n", dir->name, name);
-    assert(dir != NULL);
-    // TODO: handle '/' and '..'
     struct node *n;
-    int found = 0;
-    int i = 0;
-    while (!found && i < N) {
-        n = dir->nodes[i];
-        found = n != NULL && strcmp(n->name, name);
-        i++;
+    if (strcmp(name, "/") == 0) {
+printf("a\n");
+        while(dir->up != NULL) {
+printf("b\n");
+            dir = dir->up;
+        }
+printf("c\n");
+        n = dir;
+    } else if (strcmp(name, "..") == 0) {
+        n = dir->up;
+    } else {
+        int found = 0;
+        int i = 0;
+        while (!found && i < N) {
+            n = dir->nodes[i];
+            found = n != NULL && strcmp(n->name, name);
+            i++;
+        }
+        if (!found) {
+            n = NULL;
+        }
     }
-    if (!found) {
-        n = NULL;
-    }
+    return n;
+}
+
+struct node *create_root() {
+    struct node *n = malloc(sizeof(struct node));
+    n->type = 'd';
+    n->size = 0;
+    n->imax = 0;
+    n->up = NULL;
+    strcpy(n->name, "/");
     return n;
 }
 
@@ -124,8 +142,9 @@ void insert(struct node *dir, char type, char *name, int size) {
     if (find(dir, name) == NULL) {
         struct node *n = malloc(sizeof(struct node));
         n->type = type;
-        n->imax = 0;
         n->size = size;
+        n->imax = 0;
+        n->up = dir;
         strcpy(n->name, name);
         assert(dir->imax < N);
         dir->nodes[dir->imax] = n;
@@ -145,7 +164,7 @@ void creat(struct node *dir, char *name, int size) {
 
 int main() {
     printf("main()\n");
-    struct node *cd = root;
+    struct node *cd = create_root();
     char ch = read_char();
     while (ch != 0) {
         while (ch != '\n') {
