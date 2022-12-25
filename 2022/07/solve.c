@@ -6,45 +6,6 @@
 
 // https://adventofcode.com/2022/day/7
 
-// $ cd / => cd = root;
-// $ ls => skip
-// dir a => mkdir(cd, "a")
-// 14848514 b.txt => creat(cd, 14848514, "b.txt")
-// 8504156 c.dat => creat(cd, 14848514, "b.txt")
-// dir d => mkdir(cd, "d")
-// $ cd a => cd = find(cd, "a")
-// $ ls => skip
-// dir e => mkdir(cd, "e")
-// 29116 f => creat(cd, 29116, "f")
-// 2557 g => creat(cd, 2557, "g")
-// 62596 h.lst => creat(cd, 62596, "h.lst")
-// $ cd e => cd = find(cd, "e")
-// $ ls => skip
-// 584 i => creat(cd, 584, "i")
-// $ cd .. => cd = find(cd, "..") 
-// $ cd .. => cd = find(cd, "..")
-// $ cd d => cd = find(cd, "d")
-// $ ls => skip
-// 4060174 j => creat(cd, 4060174, "j")
-// 8033020 d.log => creat(cd, 8033020, "d.log")
-// 5626152 d.ext => creat(cd, 5626152, "d.ext")
-// 7214296 k => creat(cd, 7214296, "k")
-
-//- / (dir)
-//  - a (dir)
-//    - e (dir)
-//      - i (file, size=584)
-//    - f (file, size=29116)
-//    - g (file, size=2557)
-//    - h.lst (file, size=62596)
-//  - b.txt (file, size=14848514)
-//  - c.dat (file, size=8504156)
-//  - d (dir)
-//    - j (file, size=4060174)
-//    - d.log (file, size=8033020)
-//    - d.ext (file, size=5626152)
-//    - k (file, size=7214296)
-
 // $ ./solve < test.txt
 // ?
 
@@ -101,15 +62,12 @@ char read_name(char *name, int n) {
 }
 
 struct node *find(struct node *dir, char *name) { // TODO: add type?
-    printf("find(%s, %s)\n", dir->name, name);
+    //printf("find(%s, %s) =>", dir->name, name);
     struct node *n;
     if (strcmp(name, "/") == 0) {
-printf("a\n");
         while(dir->up != NULL) {
-printf("b\n");
             dir = dir->up;
         }
-printf("c\n");
         n = dir;
     } else if (strcmp(name, "..") == 0) {
         n = dir->up;
@@ -118,13 +76,14 @@ printf("c\n");
         int i = 0;
         while (!found && i < N) {
             n = dir->nodes[i];
-            found = n != NULL && strcmp(n->name, name);
+            found = n != NULL && (strcmp(n->name, name) == 0);
             i++;
         }
         if (!found) {
             n = NULL;
         }
     }
+    //printf("%s\n", n != NULL ? "true" : "false");
     return n;
 }
 
@@ -134,21 +93,24 @@ struct node *create_root() {
     n->size = 0;
     n->imax = 0;
     n->up = NULL;
+    memset(n->nodes, 0, sizeof(n->nodes));
     strcpy(n->name, "/");
     return n;
 }
 
 void insert(struct node *dir, char type, char *name, int size) {
     if (find(dir, name) == NULL) {
+        printf("insert(%s, %s)\n", dir->name, name);
         struct node *n = malloc(sizeof(struct node));
         n->type = type;
         n->size = size;
         n->imax = 0;
         n->up = dir;
+        memset(n->nodes, 0, sizeof(n->nodes));
         strcpy(n->name, name);
         assert(dir->imax < N);
         dir->nodes[dir->imax] = n;
-        dir->imax++;
+        dir->imax = dir->imax + 1;
     }
 }
 
@@ -160,6 +122,22 @@ void mkdir(struct node *dir, char *name) {
 void creat(struct node *dir, char *name, int size) {
     printf("creat(%s, %s, %d)\n", dir->name, name, size);
     insert(dir, 'f', name, size);
+}
+
+void print_tree(struct node *n, int level) {
+    if (n != NULL) {
+        for (int i = 0; i < level; i++) {
+            printf("  ");
+        }
+        printf("%s\n", n->name);
+        int i = 0;
+        while (i < N && n->nodes[i] != NULL) {
+            if (n->nodes[i]->type == 'd') {
+                print_tree(n->nodes[i], level + 1);
+            }
+            i++;
+        }
+    }
 }
 
 int main() {
@@ -205,6 +183,10 @@ int main() {
                 creat(cd, name, size);
             }
             assert(ch == '\n' || ch == 0);
+            print_tree(cd, 0);
         }
-    }   
+        if (ch != 0) {
+            ch = read_char();
+        }
+    }
 }
