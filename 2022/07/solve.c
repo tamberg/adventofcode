@@ -19,6 +19,7 @@ struct node {
     char name[32];
     int imax;
     int size;
+    int total;
     struct node *up;
     struct node *nodes[N];
 };
@@ -87,6 +88,7 @@ struct node *create_root() {
     struct node *n = malloc(sizeof(struct node));
     n->type = 'd';
     n->size = 0;
+    n->total = 0;
     n->imax = 0;
     n->up = NULL;
     memset(n->nodes, 0, sizeof(n->nodes));
@@ -99,6 +101,7 @@ void insert(struct node *dir, char type, char *name, int size) {
         struct node *n = malloc(sizeof(struct node));
         n->type = type;
         n->size = size;
+        n->total = 0;
         n->imax = 0;
         n->up = dir;
         memset(n->nodes, 0, sizeof(n->nodes));
@@ -106,6 +109,10 @@ void insert(struct node *dir, char type, char *name, int size) {
         assert(dir->imax < N);
         dir->nodes[dir->imax] = n;
         dir->imax = dir->imax + 1;
+        while (dir != NULL) {
+            dir->total += size;
+            dir = dir->up;
+        }
     }
 }
 
@@ -125,7 +132,7 @@ void print_tree(struct node *n, int level) {
             printf("  ");
         }
         if (n->type == 'd') {
-            printf("- %s (dir)\n", n->name);
+            printf("- %s (dir, total=%d)\n", n->name, n->total);
         } else {
             assert(n->type == 'f');
             printf("- %s (file, size=%d)\n", n->name, n->size);
