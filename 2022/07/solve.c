@@ -27,7 +27,7 @@ char read_char() {
     char buf[1];
     int r = read(STDIN_FILENO, buf, 1);
     if (r == 1) {
-        printf("%c", buf[0]);
+        //printf("%c", buf[0]);
         return buf[0];
     } else if (r == 0) {
         return 0;
@@ -100,7 +100,7 @@ struct node *create_root() {
 
 void insert(struct node *dir, char type, char *name, int size) {
     if (find(dir, name) == NULL) {
-        printf("insert(%s, %s)\n", dir->name, name);
+        //printf("insert(%s, %c, %s)\n", dir->name, type, name);
         struct node *n = malloc(sizeof(struct node));
         n->type = type;
         n->size = size;
@@ -111,30 +111,35 @@ void insert(struct node *dir, char type, char *name, int size) {
         assert(dir->imax < N);
         dir->nodes[dir->imax] = n;
         dir->imax = dir->imax + 1;
+        //printf("dir->imax = %d\n", dir->imax);
     }
+    //else {
+        //printf("insert(%s, %s) => found, skip\n", dir->name, name);
+    //}
 }
 
 void mkdir(struct node *dir, char *name) {
-    printf("mkdir(%s, %s)\n", dir->name, name);
+    //printf("mkdir(%s, %s)\n", dir->name, name);
     insert(dir, 'd', name, 0);
 }
 
 void creat(struct node *dir, char *name, int size) {
-    printf("creat(%s, %s, %d)\n", dir->name, name, size);
+    //printf("creat(%s, %s, %d)\n", dir->name, name, size);
     insert(dir, 'f', name, size);
 }
 
 void print_tree(struct node *n, int level) {
     if (n != NULL) {
+        //printf("print_tree(), level = %d\n", level);
         for (int i = 0; i < level; i++) {
             printf("  ");
         }
         printf("%s\n", n->name);
         int i = 0;
         while (i < N && n->nodes[i] != NULL) {
-            if (n->nodes[i]->type == 'd') {
-                print_tree(n->nodes[i], level + 1);
-            }
+            //if (n->nodes[i]->type == 'd') {
+            print_tree(n->nodes[i], level + 1);
+            //}
             i++;
         }
     }
@@ -183,10 +188,11 @@ int main() {
                 creat(cd, name, size);
             }
             assert(ch == '\n' || ch == 0);
-            print_tree(cd, 0);
+            //print_tree(cd, 0);
         }
         if (ch != 0) {
             ch = read_char();
         }
     }
+    print_tree(find(cd, "/"), 0);
 }
