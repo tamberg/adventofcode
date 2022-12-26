@@ -145,7 +145,7 @@ void print_tree(struct node *n, int level) {
     }
 }
 
-int sum = 0;
+int sum = 0; // sorry
 
 void sum_tree(struct node *n) {
     if (n != NULL) {
