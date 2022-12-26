@@ -7,10 +7,10 @@
 // https://adventofcode.com/2022/day/7
 
 // $ ./solve < test.txt
-// ?
+// 95437
 
 // $ ./solve < input.txt
-// ?
+// 1844187
 
 #define N 32
 
@@ -145,6 +145,21 @@ void print_tree(struct node *n, int level) {
     }
 }
 
+int sum = 0;
+
+void sum_tree(struct node *n) {
+    if (n != NULL) {
+        if (n->type == 'd' && n->total <= 100000) {
+            sum += n->total;
+        }
+        int i = 0;
+        while (i < N && n->nodes[i] != NULL) {
+            sum_tree(n->nodes[i]);
+            i++;
+        }
+    }
+}
+
 int main() {
     struct node *root = create_root();
     struct node *cd = root;
@@ -194,4 +209,6 @@ int main() {
         }
     }
     print_tree(root, 0);
+    sum_tree(root);
+    printf("%d\n", sum);
 }
