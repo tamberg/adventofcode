@@ -36,7 +36,7 @@ char read_char() {
     }
 }
 
-char read_value(char ch, int *value) {
+char read_value2(char ch, int *value) {
     int num = 0;
     while ('0' <= ch && ch <= '9') {
         int d = ch - '0'; // ASCII
@@ -174,7 +174,7 @@ int main() {
                 mkdir(cd, name);
             } else { // number
                 int size;
-                ch = read_value(ch, &size);
+                ch = read_value2(ch, &size);
                 assert(ch == ' ');
                 char name[N];
                 ch = read_name(name, N);
