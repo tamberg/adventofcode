@@ -99,6 +99,7 @@ int main() {
                     } else { state = INIT; }
                 } else if (state == FO) {
                     if (ch == 'u') { state = FOU;
+                    if (ch == 'n') { state = ON;
                     } else { state = INIT; }
                 } else if (state == FOU) {
                     if (ch == 'r') { state = FOUR;
@@ -109,6 +110,9 @@ int main() {
                 } else if (state == FIV) {
                     if (ch == 'e') { state = FIVE;
                     } else { state = INIT; }
+                } else if (state == FIVE) {
+                    if (ch == 'i') { state = EI;
+                    } else { state = INIT; }
                 } else if (state == N) {
                     if (ch == 'i') { state = NI;
                     } else { state = INIT; }
@@ -117,12 +121,20 @@ int main() {
                     } else { state = INIT; }
                 } else if (state == NIN) {
                     if (ch == 'e') { state = NINE;
+                    if (ch == 'i') { state = NI;
+                    } else { state = INIT; }
+                } else if (state == NINE) {
+                    if (ch == 'i') { state = EI;
                     } else { state = INIT; }
                 } else if (state == O) {
                     if (ch == 'n') { state = ON;
                     } else { state = INIT; }
                 } else if (state == ON) {
                     if (ch == 'e') { state = ONE;
+                    } else if (ch == 'i') { state = NI;
+                    } else { state = INIT; }
+                } else if (state == ONE) {
+                    if (ch == 'i') { state = EI;
                     } else { state = INIT; }
                 } else if (state == S) {
                     if (ch == 'e') { state = SE;
@@ -130,12 +142,14 @@ int main() {
                     } else { state = INIT; }
                 } else if (state == SE) {
                     if (ch == 'v') { state = SEV;
+                    } else if (ch == 'i') { state = EI;
                     } else { state = INIT; }
                 } else if (state == SEV) {
                     if (ch == 'e') { state = SEVE;
                     } else { state = INIT; }
                 } else if (state == SEVE) {
                     if (ch == 'n') { state = SEVEN;
+                    } else if (ch == 'i') { state = EI;
                     } else { state = INIT; }
                 } else if (state == SI) {
                     if (ch == 'x') { state = SIX;
