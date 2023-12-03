@@ -151,6 +151,9 @@ int main() {
                     if (ch == 'n') { state = SEVEN;
                     } else if (ch == 'i') { state = EI;
                     } else { state = INIT; }
+                } else if (state == SEVEN) {
+                    } else if (ch == 'i') { state = NI;
+                    } else { state = INIT; }
                 } else if (state == SI) {
                     if (ch == 'x') { state = SIX;
                     } else { state = INIT; }
@@ -166,6 +169,10 @@ int main() {
                     } else { state = INIT; }
                 } else if (state == THRE) {
                     if (ch == 'e') { state = THREE;
+                    } else if (ch == 'i') { state = EI;
+                    } else { state = INIT; }
+                } else if (state == THREE) {
+                    if (ch == 'i') { state = EI;
                     } else { state = INIT; }
                 } else if (state == TW) {
                     if (ch == 'o') { state = TWO;
