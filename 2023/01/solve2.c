@@ -14,37 +14,37 @@
 #define INIT 0
 #define O 1
 #define ON 2
-#define ONE 3
+//#define ONE 3
 #define T 4
 #define TW 5
-#define TWO 6
+//#define TWO 6
 #define TH 7
 #define THR 8
 #define THRE 9
-#define THREE 10
+//#define THREE 10
 #define F 11
 #define FO 12
 #define FOU 13
-#define FOUR 14
+//#define FOUR 14
 #define FI 15
 #define FIV 16
-#define FIVE 17
+//#define FIVE 17
 #define S 18
 #define SI 19
-#define SIX 20
+//#define SIX 20
 #define SE 21
 #define SEV 22
 #define SEVE 23
-#define SEVEN 24
+//#define SEVEN 24
 #define E 25
 #define EI 26
 #define EIG 27
 #define EIGH 28
-#define EIGHT 29
+//#define EIGHT 29
 #define N 30
 #define NI 31
 #define NIN 32
-#define NINE 33
+//#define NINE 33
 
 char read_char() {
     char buf[1];
@@ -63,15 +63,12 @@ int main() {
     int sum = 0;
     char ch = read_char();
     while (ch != 0) {
-        int n;
+        int n = -1;
         int a = -1;
         int state = INIT;
         while (ch != '\n') {
             if (('0' <= ch) && (ch <= '9')) {
                 n = ch - '0';
-                if (a == -1) {
-                    a = 10 * n;
-                }
             } else if (('a' <= ch) && (ch <= 'z')) {
                 if (state == INIT) {
                     if (ch == 'e') { state = E;
@@ -83,108 +80,224 @@ int main() {
                     } // else { state = INIT; }
                 } else if (state == E) {
                     if (ch == 'i') { state = EI;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == EI) {
                     if (ch == 'g') { state = EIG;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == EIG) {
                     if (ch == 'h') { state = EIGH;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == EIGH) {
-                    if (ch == 't') { state = EIGHT;
-                    } else { state = INIT; }
-                } else if (state == EIGHT) {
-                    if (ch == 'h') { state = TH;
-                    } else if (ch == 'w') { state = TW;
+                    if (ch == 't') { n = 8; state = T;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
                     } else { state = INIT; }
                 } else if (state == F) {
                     if (ch == 'o') { state = FO;
                     } else if (ch == 'i') { state = FI;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == FO) {
                     if (ch == 'u') { state = FOU;
-                    if (ch == 'n') { state = ON;
+                    } else if (ch == 'n') { state = ON;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == FOU) {
-                    if (ch == 'r') { state = FOUR;
+                    if (ch == 'r') { n = 4; state = INIT;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == FI) {
                     if (ch == 'v') { state = FIV;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == FIV) {
-                    if (ch == 'e') { state = FIVE;
-                    } else { state = INIT; }
-                } else if (state == FIVE) {
-                    if (ch == 'i') { state = EI;
+                    if (ch == 'e') { n = 5; state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == N) {
                     if (ch == 'i') { state = NI;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == NI) {
                     if (ch == 'n') { state = NIN;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == NIN) {
-                    if (ch == 'e') { state = NINE;
+                    if (ch == 'e') { n = 9; state = E;
                     } else if (ch == 'i') { state = NI;
-                    } else { state = INIT; }
-                } else if (state == NINE) {
-                    if (ch == 'i') { state = EI;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == O) {
                     if (ch == 'n') { state = ON;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == ON) {
-                    if (ch == 'e') { state = ONE;
+                    if (ch == 'e') { n = 1; state = E;
                     } else if (ch == 'i') { state = NI;
-                    } else { state = INIT; }
-                } else if (state == ONE) {
-                    if (ch == 'i') { state = EI;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == S) {
                     if (ch == 'e') { state = SE;
                     } else if (ch == 'i') { state = SI;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == SE) {
                     if (ch == 'v') { state = SEV;
                     } else if (ch == 'i') { state = EI;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == SEV) {
                     if (ch == 'e') { state = SEVE;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == SEVE) {
-                    if (ch == 'n') { state = SEVEN;
+                    if (ch == 'n') { n = 7; state = N;
                     } else if (ch == 'i') { state = EI;
-                    } else { state = INIT; }
-                } else if (state == SEVEN) {
-                    } else if (ch == 'i') { state = NI;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == SI) {
-                    if (ch == 'x') { state = SIX;
+                    if (ch == 'x') { n = 6; state = INIT;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == T) {
                     if (ch == 'h') { state = TH;
                     } else if (ch == 'w') { state = TW;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == TH) {
                     if (ch == 'r') { state = THR;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == THR) {
                     if (ch == 'e') { state = THRE;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == THRE) {
-                    if (ch == 'e') { state = THREE;
+                    if (ch == 'e') { n = 3; state = E;
                     } else if (ch == 'i') { state = EI;
-                    } else { state = INIT; }
-                } else if (state == THREE) {
-                    if (ch == 'i') { state = EI;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 'o') { state = O;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 } else if (state == TW) {
-                    if (ch == 'o') { state = TWO;
+                    if (ch == 'o') { n = 2; state = O;
+                    } else if (ch == 'e') { state = E;
+                    } else if (ch == 'f') { state = F;
+                    } else if (ch == 'n') { state = N;
+                    } else if (ch == 's') { state = S;
+                    } else if (ch == 't') { state = T;
                     } else { state = INIT; }
                 }
             }
+            if ((a == -1) && (n != -1)) {
+                a = 10 * n;
+            }
             ch = read_char();
         }
+        printf("%d\n", a + n);
         sum += a;
         sum += n;
         ch = read_char();
