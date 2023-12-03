@@ -5,11 +5,11 @@
 
 // https://adventofcode.com/2023/day/1
 
-// $ ./solve < test.txt
-// ?
+// $ ./solve2 < test2.txt
+// 281
 
-// $ ./solve < input.txt
-// ?
+// $ ./solve2 < input2.txt
+// 54845
 
 #define INIT 0
 #define O 1

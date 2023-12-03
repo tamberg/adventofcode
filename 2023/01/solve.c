@@ -6,10 +6,10 @@
 // https://adventofcode.com/2023/day/1
 
 // $ ./solve < test.txt
-// ?
+// 142
 
 // $ ./solve < input.txt
-// ?
+// 55090
 
 char read_char() {
     char buf[1];
