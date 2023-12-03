@@ -118,7 +118,6 @@ int main() {
                     } else if (ch == 'n') { state = ON;
                     } else if (ch == 'e') { state = E;
                     } else if (ch == 'f') { state = F;
-                    } else if (ch == 'n') { state = N;
                     } else if (ch == 'o') { state = O;
                     } else if (ch == 's') { state = S;
                     } else if (ch == 't') { state = T;
