@@ -93,6 +93,10 @@ int main() {
                 } else if (state == EIGH) {
                     if (ch == 't') { state = EIGHT;
                     } else { state = INIT; }
+                } else if (state == EIGHT) {
+                    if (ch == 'h') { state = TH;
+                    } else if (ch == 'w') { state = TW;
+                    } else { state = INIT; }
                 } else if (state == F) {
                     if (ch == 'o') { state = FO;
                     } else if (ch == 'i') { state = FI;
@@ -121,7 +125,7 @@ int main() {
                     } else { state = INIT; }
                 } else if (state == NIN) {
                     if (ch == 'e') { state = NINE;
-                    if (ch == 'i') { state = NI;
+                    } else if (ch == 'i') { state = NI;
                     } else { state = INIT; }
                 } else if (state == NINE) {
                     if (ch == 'i') { state = EI;
