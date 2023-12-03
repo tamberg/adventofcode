@@ -79,7 +79,8 @@ int main() {
                     } else if (ch == 'n') { state = N;
                     } else if (ch == 'o') { state = O;
                     } else if (ch == 's') { state = S;
-                    } else if (ch == 't') { state = T; }
+                    } else if (ch == 't') { state = T;
+                    } // else { state = INIT; }
                 } else if (state == E) {
                     if (ch == 'i') { state = EI;
                     } else { state = INIT; }
