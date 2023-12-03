@@ -14,37 +14,28 @@
 #define INIT 0
 #define O 1
 #define ON 2
-//#define ONE 3
-#define T 4
-#define TW 5
-//#define TWO 6
-#define TH 7
-#define THR 8
-#define THRE 9
-//#define THREE 10
-#define F 11
-#define FO 12
-#define FOU 13
-//#define FOUR 14
-#define FI 15
-#define FIV 16
-//#define FIVE 17
-#define S 18
-#define SI 19
-//#define SIX 20
-#define SE 21
-#define SEV 22
-#define SEVE 23
-//#define SEVEN 24
-#define E 25
-#define EI 26
-#define EIG 27
-#define EIGH 28
-//#define EIGHT 29
-#define N 30
-#define NI 31
-#define NIN 32
-//#define NINE 33
+#define T 3
+#define TW 4
+#define TH 5
+#define THR 6
+#define THRE 7
+#define F 8
+#define FO 9
+#define FOU 10
+#define FI 11
+#define FIV 12
+#define S 13
+#define SI 14
+#define SE 15
+#define SEV 16
+#define SEVE 17
+#define E 18
+#define EI 19
+#define EIG 20
+#define EIGH 21
+#define N 22
+#define NI 23
+#define NIN 24
 
 char read_char() {
     char buf[1];
@@ -297,7 +288,6 @@ int main() {
             }
             ch = read_char();
         }
-        printf("%d\n", a + n);
         sum += a;
         sum += n;
         ch = read_char();
