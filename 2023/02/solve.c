@@ -6,10 +6,10 @@
 // https://adventofcode.com/2023/day/2
 
 // $ ./solve < test.txt
-// ?
+// 8
 
 // $ ./solve < input.txt
-// ?
+// 199 (wrong)
 
 // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 
@@ -75,7 +75,6 @@ char read_value(int *value) {
 }
 
 char skip_string(char *s) {
-    printf("skip_string(\"%s\")\n", s);
     assert(s != NULL);
     char ch = read_char();
     while (*s != '\0') {
@@ -158,28 +157,49 @@ char read_games(struct input *i) {
     return ch;
 }
 
-void eval(struct input *i) {
+int eval(struct input *i, int r_max, int g_max, int b_max) {
     printf("input\n");
+    int result = 0;
     struct game *g = i->games;
     while (g != NULL) {
         printf("\tgame %d\n", g->id);
+        int r_count = 0;
+        int g_count = 0;
+        int b_count = 0;
         struct set *s = g->sets;
         while (s != NULL) {
             printf("\t\tset\n");
             struct tuple *t = s->tuples;
             while (t != NULL) {
                 printf("\t\t\ttuple %d %c\n", t->count, t->color);
+                if (t->color == 'r') {
+                    r_count += t->count;
+                } else if (t->color == 'g') {
+                    g_count += t->count;
+                } else {
+                    assert(t->color == 'b');
+                    b_count += t->count;
+                }
                 t = t->next;
             }
             s = s->next;
         }
+        if (r_count <= r_max && g_count <= g_max && b_count <= b_max) {
+            printf("\t=> possible\n");
+            result += g->id;
+        }
         g = g->next;
     }
+    return result;
 }
 
 int main() {
     struct input *i = malloc(sizeof(struct input));
     char ch = read_games(i);
     assert(ch == 0);
-    eval(i);
+    int r_max = 12;
+    int g_max = 13;
+    int b_max = 14;
+    int result = eval(i, r_max, g_max, b_max);
+    printf("%d\n", result);
 }
