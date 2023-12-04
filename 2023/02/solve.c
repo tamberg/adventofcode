@@ -9,7 +9,7 @@
 // 8
 
 // $ ./solve < input.txt
-// 199 (wrong)
+// 2256
 
 // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 
@@ -163,12 +163,16 @@ int eval(struct input *i, int r_max, int g_max, int b_max) {
     struct game *g = i->games;
     while (g != NULL) {
         printf("\tgame %d\n", g->id);
-        int r_count = 0;
-        int g_count = 0;
-        int b_count = 0;
+        //int r_count = 0;
+        //int g_count = 0;
+        //int b_count = 0;
+        int possible = 1;
         struct set *s = g->sets;
         while (s != NULL) {
             printf("\t\tset\n");
+            int r_count = 0;
+            int b_count = 0;
+            int g_count = 0;
             struct tuple *t = s->tuples;
             while (t != NULL) {
                 printf("\t\t\ttuple %d %c\n", t->count, t->color);
@@ -182,9 +186,11 @@ int eval(struct input *i, int r_max, int g_max, int b_max) {
                 }
                 t = t->next;
             }
+            possible = possible && (r_count <= r_max && g_count <= g_max && b_count <= b_max);
             s = s->next;
         }
-        if (r_count <= r_max && g_count <= g_max && b_count <= b_max) {
+        //if (r_count <= r_max && g_count <= g_max && b_count <= b_max) {
+        if (possible) {
             printf("\t=> possible\n");
             result += g->id;
         }
