@@ -158,21 +158,21 @@ char read_games(struct input *i) {
 }
 
 int eval(struct input *i, int r_max, int g_max, int b_max) {
-    printf("input\n");
+    //printf("input\n");
     int result = 0;
     struct game *g = i->games;
     while (g != NULL) {
-        printf("\tgame %d\n", g->id);
+        //printf("\tgame %d\n", g->id);
         int possible = 1;
         struct set *s = g->sets;
         while (s != NULL) {
-            printf("\t\tset\n");
+            //printf("\t\tset\n");
             int r_count = 0;
             int b_count = 0;
             int g_count = 0;
             struct tuple *t = s->tuples;
             while (t != NULL) {
-                printf("\t\t\ttuple %d %c\n", t->count, t->color);
+                //printf("\t\t\ttuple %d %c\n", t->count, t->color);
                 if (t->color == 'r') {
                     r_count += t->count;
                 } else if (t->color == 'g') {
@@ -190,7 +190,7 @@ int eval(struct input *i, int r_max, int g_max, int b_max) {
             s = s->next;
         }
         if (possible) {
-            printf("\t=> possible\n");
+            //printf("\t=> possible\n");
             result += g->id;
         }
         g = g->next;
