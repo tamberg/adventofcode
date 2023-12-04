@@ -92,7 +92,8 @@ char read_tuple(struct set *s) {
     assert(ch == ' ');
     ch = read_value(&t->count);
     assert(ch == ' ');
-    ch = read_char(&t->color);
+    ch = read_char();
+    t->color = ch;
     if (ch == 'r') { ch = skip_string("ed");
     } else if (ch == 'g') { ch = skip_string("reen");
     } else { assert(ch == 'b'); ch = skip_string("lue"); }
