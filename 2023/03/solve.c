@@ -53,14 +53,18 @@ struct input {
 
 void free_line(struct line *l) {
     printf("free_line()\n");
-    if (l != NULL) {
+    if (l != NULL) { // TODO: reverse order
         struct number *n = l->numbers;
         while (n != NULL) {
-            free(n);
+            struct number *x = n;
+            n = n->next;
+            free(x);
         }
         struct symbol *s = l->symbols;
         while (s != NULL) {
-            free(s);
+            struct symbol *x;
+            s = s->next;
+            free(x);
         }
         free(l);
     }
@@ -82,10 +86,12 @@ void add_line(struct input *i, struct line *l) {
     printf("add_line()\n");
     free_line(i->prev);
     i->prev = i->curr;
-    i->curr = l;
+    i->curr = i->next;
+    i->next = l;
 }
 
 int is_adjacent(struct number *n, struct symbol *s) {
+    printf("is_adjacent()\n");
     // sssss
     //  nnn
     //  ^
@@ -95,23 +101,35 @@ int is_adjacent(struct number *n, struct symbol *s) {
 }
 
 int update(struct input *i) {
+    printf("update()\n");
     assert(i != NULL);
-    assert(i->curr != NULL);
-    struct number *n = i->curr->numbers;
-    while (n != NULL) {
-        if (i->prev != NULL) {
-            struct symbol *s = i->prev->symbols;
+    if (i->curr != NULL) {
+        struct number *n = i->curr->numbers;
+        while (n != NULL) {
+            // prev
+            if (i->prev != NULL) {
+                struct symbol *s = i->prev->symbols;
+                while (s != NULL) {
+                    n->is_part = n->is_part || is_adjacent(n, s);
+                    s = s->next;
+                }
+            }
+            // curr
+            struct symbol *s = i->curr->symbols;
             while (s != NULL) {
                 n->is_part = n->is_part || is_adjacent(n, s);
                 s = s->next;
             }
+            // next
+            if (i->next != NULL) {
+                struct symbol *s = i->next->symbols;
+                while (s != NULL) {
+                    n->is_part = n->is_part || is_adjacent(n, s);
+                    s = s->next;
+                }
+            }
+            n = n->next;
         }
-        struct symbol *s = i->curr->symbols;
-        while (s != NULL) {
-            n->is_part = n->is_part || is_adjacent(n, s);
-            s = s->next;
-        }
-        n = n->next;
     }
 }
 
