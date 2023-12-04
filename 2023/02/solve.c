@@ -74,6 +74,7 @@ char read_value(/* out */ int *value) {
 }
 
 char skip_string(char *s) {
+    printf("skip_string(\"%s\")\n", s);
     assert(s != NULL);
     char ch = read_char();
     while (*s != '\0') {
@@ -86,7 +87,14 @@ char skip_string(char *s) {
 
 char read_tuple(struct set *s) {
     struct tuple *t = malloc(sizeof(struct tuple));
-    
+    char ch = read_char();
+    assert(ch == ' ');
+    ch = read_value(&t->count);
+    assert(ch == ' ');
+    ch = read_char(&t->color);
+    if (ch == 'r') { ch = skip_string("ed");
+    } else if (ch == 'g') { ch = skip_string("reen");
+    } else { assert(ch == 'b'); ch = skip_string("lue"); }
     assert(ch == ',' || ch == ';' || ch == '\n');
     t->next = s->tuples;
     s->tuples = t;
@@ -94,7 +102,7 @@ char read_tuple(struct set *s) {
 }
 
 char read_tuples(struct set *s) {
-    i->tuples = NULL;
+    s->tuples = NULL;
     char ch = read_tuple(s);
     while (ch == ',') {
         ch = read_tuple(s);
@@ -104,7 +112,7 @@ char read_tuples(struct set *s) {
 
 char read_set(struct game *g) {
     struct set *s = malloc(sizeof(struct set));
-    ch = read_tuples(s);
+    char ch = read_tuples(s);
     assert(ch == ';' || ch == '\n');
     s->next = g->sets;
     g->sets = s;
@@ -112,7 +120,7 @@ char read_set(struct game *g) {
 }
 
 char read_sets(struct game *g) {
-    i->sets = NULL;
+    g->sets = NULL;
     char ch = read_set(g);
     while (ch == ';') {
         ch = read_set(g);
