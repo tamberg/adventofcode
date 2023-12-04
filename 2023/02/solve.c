@@ -163,9 +163,6 @@ int eval(struct input *i, int r_max, int g_max, int b_max) {
     struct game *g = i->games;
     while (g != NULL) {
         printf("\tgame %d\n", g->id);
-        //int r_count = 0;
-        //int g_count = 0;
-        //int b_count = 0;
         int possible = 1;
         struct set *s = g->sets;
         while (s != NULL) {
@@ -186,10 +183,12 @@ int eval(struct input *i, int r_max, int g_max, int b_max) {
                 }
                 t = t->next;
             }
-            possible = possible && (r_count <= r_max && g_count <= g_max && b_count <= b_max);
+            possible = possible &&
+                (r_count <= r_max &&
+                 g_count <= g_max &&
+                 b_count <= b_max);
             s = s->next;
         }
-        //if (r_count <= r_max && g_count <= g_max && b_count <= b_max) {
         if (possible) {
             printf("\t=> possible\n");
             result += g->id;
