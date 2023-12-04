@@ -11,8 +11,6 @@
 // $ ./solve2 < input.txt
 // 74229
 
-// Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-
 // INPUT = GAME { GAME } EOF
 // GAME = "Game" ID ':' SET { ';' SET } '\n'
 // ID = NUMBER
@@ -21,12 +19,6 @@
 // NUMBER = DIGIT { DIGIT }
 // COLOR = "red" | "green" | "blue"
 // DIGIT = '0' - '9'
-
-// only 12 red cubes, 13 green cubes, and 14 blue cubes?
-// => count color per game
-// => compare to get (im)possible
-
-// add up the IDs of the games that would have been possible
 
 struct tuple {
     int count;
