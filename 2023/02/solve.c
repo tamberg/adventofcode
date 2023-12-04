@@ -13,7 +13,7 @@
 
 // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 
-// INPUT = GAME { GAME }
+// INPUT = GAME { GAME } EOF
 // GAME = "Game" ID ':' SET { ';' SET } '\n'
 // ID = NUMBER
 // SET = TUPLE { ',' TUPLE }
@@ -62,7 +62,7 @@ char read_char() {
     }
 }
 
-char read_value(/* out */ int *value) {
+char read_value(int *value) {
     char ch = read_char();
     int num = 0;
     while ('0' <= ch && ch <= '9') {
@@ -142,7 +142,7 @@ char read_game(struct input *i) {
         g->next = i->games;
         i->games = g;
     } else {
-        assert(ch == 0);
+        assert(ch == 0); // EOF
     }
     return ch;
 }
@@ -153,6 +153,7 @@ char read_games(struct input *i) {
     while (ch == '\n') {
         ch = read_game(i);
     }
+    assert(ch == 0); // EOF
     return ch;
 }
 
