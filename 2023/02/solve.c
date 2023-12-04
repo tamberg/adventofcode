@@ -13,6 +13,7 @@
 
 // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 
+// INPUT = GAME { GAME }
 // GAME = "Game" ID ':' SET { ';' SET } '\n'
 // ID = NUMBER
 // SET = TUPLE { ',' TUPLE }
@@ -129,15 +130,20 @@ char read_sets(struct game *g) {
 }
 
 char read_game(struct input *i) {
-    struct game *g = malloc(sizeof(struct game));
-    char ch = skip_string("Game");
-    assert(ch == ' ');
-    ch = read_value(&g->id);
-    assert(ch == ':');
-    ch = read_sets(g);
-    assert(ch == '\n');
-    g->next = i->games;
-    i->games = g;
+    char ch = read_char();
+    if (ch == 'G') {
+        struct game *g = malloc(sizeof(struct game));
+        ch = skip_string("ame");
+        assert(ch == ' ');
+        ch = read_value(&g->id);
+        assert(ch == ':');
+        ch = read_sets(g);
+        assert(ch == '\n');
+        g->next = i->games;
+        i->games = g;
+    } else {
+        assert(ch == 0);
+    }
     return ch;
 }
 
