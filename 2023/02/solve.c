@@ -13,7 +13,7 @@
 
 // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 
-// GAME = "Game" ID ':' SET { ';' SET }
+// GAME = "Game" ID ':' SET { ';' SET } '\n'
 // ID = NUMBER
 // SET = TUPLE { ',' TUPLE }
 // TUPLE = ' ' NUMBER ' ' COLOR
@@ -31,22 +31,22 @@ struct tuple {
     int count;
     char color; // 'r', 'g', 'b'
     struct tuple *next;
-}
+};
 
 struct set {
     struct tuple *tuples;
     struct set *next;
-}
+};
 
 struct game {
     int id;
     struct set *sets;
     struct game *next;
-}
+};
 
 struct input {
     struct game *games;
-}
+};
 
 char read_char() {
     char buf[1];
@@ -74,7 +74,50 @@ char read_value(/* out */ int *value) {
 }
 
 char skip_string(char *s) {
+    assert(s != NULL);
+    char ch = read_char();
+    while (*s != '\0') {
+        assert(ch == *s);
+        ch = read_char();
+        s++;
+    }
+    return ch;
+}
+
+char read_tuple(struct set *s) {
+    struct tuple *t = malloc(sizeof(struct tuple));
     
+    assert(ch == ',' || ch == ';' || ch == '\n');
+    t->next = s->tuples;
+    s->tuples = t;
+    return ch;
+}
+
+char read_tuples(struct set *s) {
+    i->tuples = NULL;
+    char ch = read_tuple(s);
+    while (ch == ',') {
+        ch = read_tuple(s);
+    }
+    return ch;
+}
+
+char read_set(struct game *g) {
+    struct set *s = malloc(sizeof(struct set));
+    ch = read_tuples(s);
+    assert(ch == ';' || ch == '\n');
+    s->next = g->sets;
+    g->sets = s;
+    return ch;
+}
+
+char read_sets(struct game *g) {
+    i->sets = NULL;
+    char ch = read_set(g);
+    while (ch == ';') {
+        ch = read_set(g);
+    }
+    return ch;
 }
 
 char read_game(struct input *i) {
@@ -83,9 +126,10 @@ char read_game(struct input *i) {
     assert(ch == ' ');
     ch = read_value(&g->id);
     assert(ch == ':');
-    char ch = read_sets(g);
-    assert(ch == ';' || ch == '\n');
-    add_game(i, g);
+    ch = read_sets(g);
+    assert(ch == '\n');
+    g->next = i->games;
+    i->games = g;
     return ch;
 }
 
@@ -106,7 +150,7 @@ void eval(struct input *i) {
         struct set *s = g->sets;
         while (s != NULL) {
             printf("\t\tset\n");
-            struct tuple *t = g->tuples;
+            struct tuple *t = s->tuples;
             while (t != NULL) {
                 printf("\t\t\ttuple %d %c\n", t->count, t->color);
                 t = t->next;
