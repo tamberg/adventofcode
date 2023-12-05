@@ -23,7 +23,7 @@
 // ...$.*....
 // .664.598..
 
-// sliding window, hx = ..\n, hy = 3
+// sliding window, wx = ..\n, wy = 3
 // bounding box, collision check
 
 struct number {
