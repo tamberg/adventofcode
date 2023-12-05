@@ -99,13 +99,15 @@ void add_line(struct input *i, struct line *l) {
 }
 
 int is_adjacent(struct number *n, struct symbol *s) {
-    printf("is_adjacent()\n");
+    printf("is_adjacent()");
     // sssss
     //  nnn
     //  ^
     int result =
         s->pos >= (n->pos - 1) &&
         s->pos <= (n->pos + n->len);
+    printf("=> %d\n", result);
+    return result;
 }
 
 int result = 0;
@@ -154,6 +156,7 @@ char read_char() {
         printf("%c\n", buf[0]);
         return buf[0];
     } else if (r == 0) {
+        printf("\n");
         return 0;
     } else {
         perror("read");
