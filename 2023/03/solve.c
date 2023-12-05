@@ -11,7 +11,8 @@
 // $ ./solve < input.txt
 // 521745 (wrong, too low)
 
-// 0-------->
+// 0    pos
+//      v
 // 467..114.. <- prev
 // ...*...... <- curr
 // ..35..633. <- next
@@ -203,6 +204,8 @@ int main() {
         update(i);
         ch = read_char();
     }
+    add_line(i, NULL); // flush
+    update(i);
     add_line(i, NULL); // flush
     update(i);
     printf("%d\n", result);
