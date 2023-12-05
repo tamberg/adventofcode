@@ -6,7 +6,7 @@
 // https://adventofcode.com/2023/day/3
 
 // $ ./solve < test.txt
-// ?
+// 4361
 
 // $ ./solve < input.txt
 // ?
@@ -90,7 +90,7 @@ void add_symbol(struct line *l, struct symbol *s) {
 void add_line(struct input *i, struct line *l) {
     printf("add_line()\n");
     assert(i != NULL);
-    assert(l != NULL);
+    //assert(l != NULL);
     free_line(i->prev);
     i->prev = i->curr;
     i->curr = i->next;
@@ -107,7 +107,9 @@ int is_adjacent(struct number *n, struct symbol *s) {
         s->pos <= (n->pos + n->len);
 }
 
-int update(struct input *i) {
+int result = 0;
+
+void update(struct input *i) {
     printf("update()\n");
     assert(i != NULL);
     if (i->curr != NULL) {
@@ -134,6 +136,9 @@ int update(struct input *i) {
                     n->is_part = n->is_part || is_adjacent(n, s);
                     s = s->next;
                 }
+            }
+            if (n->is_part) {
+                result += n->val;
             }
             n = n->next;
         }
@@ -175,10 +180,9 @@ int main() {
                     n->pos = pos;
                     n->val = 0;
                     n->len = 0;
-                } else {
-                    n->val = n->val * 10 + (ch - '0');
-                    n->len = n->len + 1;
                 }
+                n->val = n->val * 10 + (ch - '0');
+                n->len = n->len + 1;
             } else { // not a digit
                 if (n != NULL) {
                     add_number(l, n);
@@ -196,9 +200,10 @@ int main() {
             pos++;
         }
         add_line(i, l);
-        update(i); // TODO
+        update(i);
         ch = read_char();
     }
-    int result = 0;
+    add_line(i, NULL); // flush
+    update(i);
     printf("%d\n", result);
 }
