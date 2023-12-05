@@ -53,7 +53,8 @@ struct input {
 
 void free_line(struct line *l) {
     printf("free_line()\n");
-    if (l != NULL) { // TODO: reverse order
+    if (l != NULL) {
+        // TODO: free in reverse order
         struct number *n = l->numbers;
         while (n != NULL) {
             struct number *x = n;
@@ -62,7 +63,7 @@ void free_line(struct line *l) {
         }
         struct symbol *s = l->symbols;
         while (s != NULL) {
-            struct symbol *x;
+            struct symbol *x = s;
             s = s->next;
             free(x);
         }
@@ -72,18 +73,24 @@ void free_line(struct line *l) {
 
 void add_number(struct line *l, struct number *n) {
     printf("add_number()\n");
+    assert(l != NULL);
+    assert(n != NULL);
     n->next = l->numbers;
     l->numbers = n;
 }
 
 void add_symbol(struct line *l, struct symbol *s) {
     printf("add_symbol()\n");
+    assert(l != NULL);
+    assert(s != NULL);
     s->next = l->symbols;
     l->symbols = s;
 }
 
 void add_line(struct input *i, struct line *l) {
     printf("add_line()\n");
+    assert(i != NULL);
+    assert(l != NULL);
     free_line(i->prev);
     i->prev = i->curr;
     i->curr = i->next;
@@ -153,6 +160,7 @@ int main() {
     struct input *i = malloc(sizeof(struct input));
     i->prev = NULL;
     i->curr = NULL;
+    i->next = NULL;
     char ch = read_char();
     while (ch != 0) {
         struct line *l = malloc(sizeof(struct line));
