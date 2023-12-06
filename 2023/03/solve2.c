@@ -59,7 +59,7 @@ struct input {
 };
 
 void free_line(struct line *l) {
-    printf("free_line()\n");
+    //printf("free_line()\n");
     if (l != NULL) {
         // TODO: free in reverse order
         struct number *n = l->numbers;
@@ -79,7 +79,7 @@ void free_line(struct line *l) {
 }
 
 void add_number(struct line *l, struct number *n) {
-    printf("add_number(), pos = %d, val = %d, len = %d\n", n->pos, n->val, n->len);
+    //printf("add_number(), pos = %d, val = %d, len = %d\n", n->pos, n->val, n->len);
     assert(l != NULL);
     assert(n != NULL);
     n->next = l->numbers;
@@ -87,7 +87,7 @@ void add_number(struct line *l, struct number *n) {
 }
 
 void add_symbol(struct line *l, struct symbol *s) {
-    printf("add_symbol(), pos = %d\n", s->pos);
+    //printf("add_symbol(), pos = %d\n", s->pos);
     assert(l != NULL);
     assert(s != NULL);
     s->next = l->symbols;
@@ -95,7 +95,7 @@ void add_symbol(struct line *l, struct symbol *s) {
 }
 
 void add_line(struct input *i, struct line *l) {
-    printf("add_line()\n");
+    //printf("add_line()\n");
     assert(i != NULL);
     //assert(l != NULL);
     free_line(i->prev);
@@ -105,30 +105,30 @@ void add_line(struct input *i, struct line *l) {
 }
 
 int is_adjacent(struct number *n, struct symbol *s) {
-    printf("is_adjacent()");
+    //printf("is_adjacent()");
     // sssss
     //  nnn
     //  ^
-    printf(" %d ? [%d, %d] ", s->pos, n->pos - 1, n->pos + n->len);
+    //printf(" %d ? [%d, %d] ", s->pos, n->pos - 1, n->pos + n->len);
     int result =
         s->pos >= (n->pos - 1) &&
         s->pos <= (n->pos + n->len);
-    printf("=> %d\n", result);
+    //printf("=> %d\n", result);
     return result;
 }
 
 int has_part_number(struct symbol *s, struct number *n) {
-    printf("has_part_number() => ");
+    //printf("has_part_number() => ");
     struct part *p = s->parts;
     while (p != NULL && p->number != n) {
         p = p->next;
     }
-    printf("%d\n", p != NULL);
+    //printf("%d\n", p != NULL);
     return p != NULL;
 }
 
 void add_part_number(struct symbol *s, struct number *n) {
-    printf("add_part_number()\n");
+    //printf("add_part_number()\n");
     struct part *p = malloc(sizeof(struct part));
     p->number = n;
     p->next = s->parts;
@@ -136,14 +136,14 @@ void add_part_number(struct symbol *s, struct number *n) {
 }
 
 int count_parts(struct symbol *s) {
-    printf("count_parts() => ");
+    //printf("count_parts() => ");
     int result = 0;
     struct part *p = s->parts;
     while (p != NULL) {
          result++;
          p = p->next;
     }
-    printf("%d\n", result);
+    //printf("%d\n", result);
     return result;
 }
 
@@ -160,7 +160,7 @@ void add_part_numbers(struct symbol *s, struct number *list) {
 int result = 0;
 
 void update2(struct input *i) {
-    printf("update2()\n");
+    //printf("update2()\n");
     assert(i != NULL);
     if (i->curr != NULL) {
         struct symbol *s = i->curr->symbols;
@@ -185,7 +185,7 @@ void update2(struct input *i) {
 }
 
 void update(struct input *i) {
-    printf("update()\n");
+    //printf("update()\n");
     assert(i != NULL);
     if (i->curr != NULL) {
         struct number *n = i->curr->numbers;
@@ -214,7 +214,7 @@ void update(struct input *i) {
             }
             if (n->is_part) {
                 result += n->val;
-                printf("=> result = %d\n", result);
+                //printf("=> result = %d\n", result);
             }
             n = n->next;
         }
@@ -222,14 +222,14 @@ void update(struct input *i) {
 }
 
 char read_char() {
-    printf("read_char() => ");
+    //printf("read_char() => ");
     char buf[1];
     int r = read(STDIN_FILENO, buf, 1);
     if (r == 1) {
-        printf("%c\n", buf[0]);
+        //printf("%c\n", buf[0]);
         return buf[0];
     } else if (r == 0) {
-        printf("\n");
+        //printf("\n");
         return 0;
     } else {
         perror("read");
@@ -238,7 +238,7 @@ char read_char() {
 }
 
 int main() {
-    printf("main()\n");
+    //printf("main()\n");
     struct input *i = malloc(sizeof(struct input));
     i->prev = NULL;
     i->curr = NULL;
