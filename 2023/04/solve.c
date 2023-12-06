@@ -6,7 +6,7 @@
 // https://adventofcode.com/2023/day/4
 
 // $ ./solve < test.txt
-// ? (13)
+// 13
 
 // $ ./solve < input.txt
 // ?
@@ -33,9 +33,10 @@ char read_char() {
     char buf[1];
     int r = read(STDIN_FILENO, buf, 1);
     if (r == 1) {
-        printf("%c", buf[0]);
+        //printf("%c", buf[0]);
         return buf[0];
     } else if (r == 0) {
+        //printf("\n");
         return 0;
     } else {
         perror("read");
@@ -45,6 +46,9 @@ char read_char() {
 
 char read_value(int *value) {
     char ch = read_char();
+    while (ch == ' ') {
+        ch = read_char();
+    }
     int num = 0;
     while ('0' <= ch && ch <= '9') {
         int d = ch - '0'; // ASCII
@@ -65,7 +69,7 @@ int eval(struct input *i) {
             struct number *n = c->wins;
             while (n != NULL) {
                 if (m->val == n->val) {
-printf("%d ", m->val);
+                    //printf("%d ", m->val);
                     if (score == 0) {
                         score = 1;
                     } else {
@@ -76,7 +80,7 @@ printf("%d ", m->val);
             }
             m = m->next;
         }
-printf("\n");
+        //printf("\n");
         result += score;
         c = c->next;
     }
