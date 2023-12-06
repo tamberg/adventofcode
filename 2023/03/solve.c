@@ -9,7 +9,7 @@
 // 4361
 
 // $ ./solve < input.txt
-// 521745 (wrong, too low)
+// 522726
 
 // 0    pos
 //      v
@@ -73,7 +73,7 @@ void free_line(struct line *l) {
 }
 
 void add_number(struct line *l, struct number *n) {
-    printf("add_number()\n");
+    printf("add_number(), pos = %d, val = %d, len = %d\n", n->pos, n->val, n->len);
     assert(l != NULL);
     assert(n != NULL);
     n->next = l->numbers;
@@ -81,7 +81,7 @@ void add_number(struct line *l, struct number *n) {
 }
 
 void add_symbol(struct line *l, struct symbol *s) {
-    printf("add_symbol()\n");
+    printf("add_symbol(), pos = %d\n", s->pos);
     assert(l != NULL);
     assert(s != NULL);
     s->next = l->symbols;
@@ -103,6 +103,7 @@ int is_adjacent(struct number *n, struct symbol *s) {
     // sssss
     //  nnn
     //  ^
+    printf(" %d ? [%d, %d] ", s->pos, n->pos - 1, n->pos + n->len);
     int result =
         s->pos >= (n->pos - 1) &&
         s->pos <= (n->pos + n->len);
@@ -142,6 +143,7 @@ void update(struct input *i) {
             }
             if (n->is_part) {
                 result += n->val;
+                printf("=> result = %d\n", result);
             }
             n = n->next;
         }
@@ -184,6 +186,7 @@ int main() {
                     n->pos = pos;
                     n->val = 0;
                     n->len = 0;
+                    n->is_part = 0;
                 }
                 n->val = n->val * 10 + (ch - '0');
                 n->len = n->len + 1;
@@ -203,12 +206,14 @@ int main() {
             ch = read_char();
             pos++;
         }
+        if (n != NULL) {
+            add_number(l, n);
+            n = NULL;
+        }
         add_line(i, l);
         update(i);
         ch = read_char();
     }
-    add_line(i, NULL); // flush
-    update(i);
     add_line(i, NULL); // flush
     update(i);
     printf("%d\n", result);
