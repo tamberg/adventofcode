@@ -71,7 +71,7 @@ int eval(struct input *i) {
                     if (score == 0) {
                         score = 1;
                     } else {
-                        score = score * 2;
+                        score *= 2;
                     }
                 }
                 n = n->next;
