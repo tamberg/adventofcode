@@ -5,10 +5,10 @@
 
 // https://adventofcode.com/2023/day/3
 
-// $ ./solve < test.txt
+// $ ./solve2 < test.txt
 // 467835
 
-// $ ./solve < input.txt
+// $ ./solve2 < input.txt
 // 81721933
 
 // 0    pos
@@ -30,7 +30,7 @@ struct number {
     int pos;
     int len;
     int val;
-    int is_part;
+    //int is_part;
     struct number *next;
 };
 
@@ -184,6 +184,7 @@ void update2(struct input *i) {
     }
 }
 
+/*
 void update(struct input *i) {
     //printf("update()\n");
     assert(i != NULL);
@@ -220,6 +221,7 @@ void update(struct input *i) {
         }
     }
 }
+*/
 
 char read_char() {
     //printf("read_char() => ");
@@ -257,7 +259,7 @@ int main() {
                     n->pos = pos;
                     n->val = 0;
                     n->len = 0;
-                    n->is_part = 0;
+                    //n->is_part = 0;
                 }
                 n->val = n->val * 10 + (ch - '0');
                 n->len = n->len + 1;
