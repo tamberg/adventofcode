@@ -10,17 +10,17 @@
 // 35
 
 // $ ./solve < input.txt
-// -1913832695 (That's not the right answer.)
+// 389056265
 
 struct seed {
-    int val;
+    long val;
     struct seed *next;
 };
 
 struct range {
-    int src;
-    int dst;
-    int len;
+    long src;
+    long dst;
+    long len;
     struct range *next;
 };
 
@@ -50,10 +50,10 @@ char read_char() {
     }
 }
 
-char read_value2(int *value, char ch) {
-    int num = 0;
+char read_value2(long *value, char ch) {
+    long num = 0;
     while ('0' <= ch && ch <= '9') {
-        int d = ch - '0'; // ASCII
+        long d = ch - '0'; // ASCII
         num = (num * 10) + d;
         ch = read_char();
     }
@@ -61,7 +61,7 @@ char read_value2(int *value, char ch) {
     return ch;
 }
 
-char read_value(int *value) {
+char read_value(long *value) {
     char ch = read_char();
     return read_value2(value, ch);
 }
@@ -104,30 +104,30 @@ void append_table(struct input *i, struct table *x) {
     }
 }
 
-int lookup(struct table *t, int i) {
+long lookup(struct table *t, long x) {
     struct range *r = t->ranges;
-    while (r != NULL && (i < r->src || (r->src + r->len) <= i)) {
+    while (r != NULL && (x < r->src || (r->src + r->len) <= x)) {
         r = r->next;
     }
-    int result;
+    long result;
     if (r != NULL) {
-        result = i + (r->dst - r->src);
+        result = x + (r->dst - r->src);
     } else {
-        result = i;
+        result = x;
     }
     return result;
 }
 
-int min(int a, int b) {
+long min(long a, long b) {
     return a < b ? a : b;
 }
 
-int eval(struct input *i) {
-    int result = INT_MAX;
+long eval(struct input *i) {
+    long result = LONG_MAX;
     struct seed *s = i->seeds;
     while (s != NULL) {
         struct table *t = i->tables;
-        int val = s->val;
+        long val = s->val;
         while (t != NULL) {
             //printf("%d => ", val);
             val = lookup(t, val);
@@ -144,14 +144,18 @@ int main() {
     struct input *i = malloc(sizeof(struct input));
     i->seeds = NULL;
     char ch = skip_string("seeds:");
+    //printf("seeds\n");
     assert(ch == ' ');
     while (ch != '\n') {
         struct seed *s = malloc(sizeof(struct seed));
         ch = read_value(&s->val);
         assert(ch == ' ' || ch == '\n');
+        //printf("%ld\n", s->val);
         s->next = i->seeds;
         i->seeds = s;
     }
+    ch = read_char();
+    assert(ch == '\n');
     i->tables = NULL;
     while (ch != 0) {
         struct table *t = malloc(sizeof(struct table));
@@ -170,12 +174,12 @@ int main() {
             ch = read_value(&r->len);
             assert(ch == '\n');
             ch = read_char();
-            //printf("dst = %d, src = %d, len = %d\n", r->dst, r->src, r->len);
+            //printf("dst = %ld, src = %ld, len = %ld\n", r->dst, r->src, r->len);
             r->next = t->ranges;
             t->ranges = r;
         }
         append_table(i, t);
     }
-    int result = eval(i);
-    printf("%d\n", result);
+    long result = eval(i);
+    printf("%ld\n", result);
 }
