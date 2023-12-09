@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <limits.h>
 #include <assert.h>
 
 // https://adventofcode.com/2023/day/5
 
 // $ ./solve < test.txt
-// ? (35)
+// 35
 
 // $ ./solve < input.txt
 // ?
@@ -38,10 +39,10 @@ char read_char() {
     char buf[1];
     int r = read(STDIN_FILENO, buf, 1);
     if (r == 1) {
-        printf("%c", buf[0]);
+        //printf("%c", buf[0]);
         return buf[0];
     } else if (r == 0) {
-        printf("\n");
+        //printf("\n");
         return 0;
     } else {
         perror("read");
@@ -73,6 +74,7 @@ char read_string(char *s) {
         i++;
         ch = read_char();
     }
+    s[i] = '\0';
     return ch;
 }
 
@@ -104,49 +106,45 @@ void append_table(struct input *i, struct table *x) {
 
 int lookup(struct table *t, int i) {
     struct range *r = t->ranges;
-    while (r != NULL && r->src <= i && i <= r->src + r->len) {
+    while (r != NULL && (i < r->src || (r->src + r->len) <= i)) {
         r = r->next;
     }
     int result;
     if (r != NULL) {
-        result = r->dst + (i - r->src);
+        result = i + (r->dst - r->src);
     } else {
         result = i;
     }
     return result;
 }
 
+int min(int a, int b) {
+    return a < b ? a : b;
+}
+
 int eval(struct input *i) {
+    int result = INT_MAX;
     struct seed *s = i->seeds;
     while (s != NULL) {
         struct table *t = i->tables;
-        int result = s->val;
+        int val = s->val;
         while (t != NULL) {
-            printf("%d => ", result);
-            result = lookup(t, result);
+            printf("%d => ", val);
+            val = lookup(t, val);
             t = t->next;
         }
-        printf("%d\n", result);
+        printf("%d\n", val);
+        result = min(result, val);
         s = s->next;
     }
+    return result;
 }
-
-//seeds: 79 14 55 13\n
-//\n
-//seed-to-soil map:\n
-//50 98 2\n
-//52 50 48\n
-//\n
-//soil-to-fertilizer map:\n
-//0 15 37\n
-//37 52 2\n
-//39 0 15\n
-//\eof
 
 int main() {
     struct input *i = malloc(sizeof(struct input));
     i->seeds = NULL;
-    char ch = skip_string("seeds: ");
+    char ch = skip_string("seeds:");
+    assert(ch == ' ');
     while (ch != '\n') {
         struct seed *s = malloc(sizeof(struct seed));
         ch = read_value(&s->val);
@@ -155,31 +153,29 @@ int main() {
         i->seeds = s;
     }
     i->tables = NULL;
-    ch = read_char();
     while (ch != 0) {
         struct table *t = malloc(sizeof(struct table));
         ch = read_string(t->name);
+        printf("%s\n", t->name);
         assert(ch == ':');
         ch = read_char();
         assert(ch == '\n');
         ch = read_char();
-        // assert number or '\n'
         while (ch != '\n' && ch != 0) {
             struct range *r = malloc(sizeof(struct range));
-            do {
-                ch = read_value2(&r->src, ch);
-                assert(ch == ' ');
-                ch = read_value(&r->dst);
-                assert(ch == ' ');
-                ch = read_value(&r->len);
-                assert(ch == '\n');
-                ch = read_char();
-            } while (ch != '\n' && ch != 0);
+            ch = read_value2(&r->dst, ch);
+            assert(ch == ' ');
+            ch = read_value(&r->src);
+            assert(ch == ' ');
+            ch = read_value(&r->len);
+            assert(ch == '\n');
+            ch = read_char();
+            printf("dst = %d, src = %d, len = %d\n", r->dst, r->src, r->len);
             r->next = t->ranges;
             t->ranges = r;
         }
         append_table(i, t);
-        ch = read_char();
+        //ch = read_char();
     }
     int result = eval(i);
     printf("%d\n", result);
