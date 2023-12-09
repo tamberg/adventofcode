@@ -188,10 +188,11 @@ int eval2(struct input *i) {
     return result;
 }
 
-int main() {
+int main(void) {
     struct input *i = malloc(sizeof(struct input));
     char ch = read_games(i);
     assert(ch == 0);
     int result = eval2(i);
     printf("%d\n", result);
+    return 0;
 }

@@ -49,7 +49,7 @@ char read_char() {
     }
 }
 
-int main() {
+int main(void) {
     int sum = 0;
     char ch = read_char();
     while (ch != 0) {
@@ -291,4 +291,5 @@ int main() {
         ch = read_char();
     }
     printf("%d\n", sum);
+    return 0;
 }

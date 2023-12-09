@@ -165,7 +165,7 @@ char read_char() {
     }
 }
 
-int main() {
+int main(void) {
     printf("main()\n");
     struct input *i = malloc(sizeof(struct input));
     i->prev = NULL;
@@ -216,4 +216,5 @@ int main() {
     add_line(i, NULL); // flush
     update(i);
     printf("%d\n", result);
+    return 0;
 }

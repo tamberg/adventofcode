@@ -239,7 +239,7 @@ char read_char() {
     }
 }
 
-int main() {
+int main(void) {
     //printf("main()\n");
     struct input *i = malloc(sizeof(struct input));
     i->prev = NULL;
@@ -294,4 +294,5 @@ int main() {
     //update(i);
     update2(i);
     printf("%d\n", result);
+    return 0;
 }

@@ -13,7 +13,6 @@
 
 struct number {
     int val;
-    struct number *prev;
     struct number *next;
 };
 
@@ -85,7 +84,7 @@ int eval(struct input *i) {
     return result;
 }
 
-int main() {
+int main(void) {
     struct input *i = malloc(sizeof(struct input));
     char ch = read_char();
     while (ch != '\n' && ch != 0) {
@@ -117,4 +116,5 @@ int main() {
     }
     int result = eval(i);
     printf("%d\n", result);
+    return 0;
 }

@@ -190,7 +190,7 @@ int eval(struct input *i, int r_max, int g_max, int b_max) {
     return result;
 }
 
-int main() {
+int main(void) {
     struct input *i = malloc(sizeof(struct input));
     char ch = read_games(i);
     assert(ch == 0);
@@ -199,4 +199,5 @@ int main() {
     int b_max = 14;
     int result = eval(i, r_max, g_max, b_max);
     printf("%d\n", result);
+    return 0;
 }
