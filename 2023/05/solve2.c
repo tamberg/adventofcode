@@ -10,7 +10,9 @@
 // 46
 
 // $ ./solve < input.txt
-// ?
+// 137516820 (12m5.295s on Pi 5)
+
+
 
 struct seed {
     long fro;
