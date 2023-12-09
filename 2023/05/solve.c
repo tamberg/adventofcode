@@ -129,11 +129,11 @@ int eval(struct input *i) {
         struct table *t = i->tables;
         int val = s->val;
         while (t != NULL) {
-            printf("%d => ", val);
+            //printf("%d => ", val);
             val = lookup(t, val);
             t = t->next;
         }
-        printf("%d\n", val);
+        //printf("%d\n", val);
         result = min(result, val);
         s = s->next;
     }
@@ -156,7 +156,7 @@ int main() {
     while (ch != 0) {
         struct table *t = malloc(sizeof(struct table));
         ch = read_string(t->name);
-        printf("%s\n", t->name);
+        //printf("%s\n", t->name);
         assert(ch == ':');
         ch = read_char();
         assert(ch == '\n');
@@ -170,12 +170,12 @@ int main() {
             ch = read_value(&r->len);
             assert(ch == '\n');
             ch = read_char();
-            printf("dst = %d, src = %d, len = %d\n", r->dst, r->src, r->len);
+            //printf("dst = %d, src = %d, len = %d\n", r->dst, r->src, r->len);
             r->next = t->ranges;
             t->ranges = r;
         }
         append_table(i, t);
     }
     int result = eval(i);
-    printf("%d\n", result);
+    //printf("%d\n", result);
 }
