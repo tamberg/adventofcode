@@ -10,7 +10,7 @@
 // 35
 
 // $ ./solve < input.txt
-// ?
+// -1913832695 (That's not the right answer.)
 
 struct seed {
     int val;
@@ -177,5 +177,5 @@ int main() {
         append_table(i, t);
     }
     int result = eval(i);
-    //printf("%d\n", result);
+    printf("%d\n", result);
 }
