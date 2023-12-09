@@ -164,7 +164,7 @@ int main() {
         assert(ch == '\n');
         ch = read_char();
         // assert number or '\n'
-        while (ch != '\n') {
+        while (ch != '\n' && ch != 0) {
             struct range *r = malloc(sizeof(struct range));
             do {
                 ch = read_value2(&r->src, ch);
@@ -174,7 +174,7 @@ int main() {
                 ch = read_value(&r->len);
                 assert(ch == '\n');
                 ch = read_char();
-            } while (ch != '\n');
+            } while (ch != '\n' && ch != 0);
             r->next = t->ranges;
             t->ranges = r;
         }
