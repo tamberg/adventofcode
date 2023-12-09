@@ -6,10 +6,10 @@
 // https://adventofcode.com/2023/day/6
 
 // $ ./solve < test.txt
-// ? (288)
+// 288
 
 // $ ./solve < input.txt
-// ?
+// 74698
 
 struct boat {
     int time;
@@ -76,11 +76,24 @@ void append_boat(struct input *i, struct boat *x) {
 }
 
 int eval(struct input *i) {
+    int result = 1;
     struct boat *b = i->boats;
     while (b != NULL) {
         printf("boat %d, %d\n", b->time, b->dist);
+        int hold_min = 0;
+        while ((b->time - hold_min) * hold_min <= b->dist) {
+            hold_min++;
+        }
+        printf("hold_min = %d\n", hold_min);
+        int hold_max = b->time;
+        while ((b->time - hold_max) * hold_max <= b->dist) {
+            hold_max--;
+        }
+        printf("hold_max = %d\n", hold_max);
+        result *= (hold_max - hold_min) + 1;
         b = b->next;
     }
+    return result;
 }
 
 int main(void) {
