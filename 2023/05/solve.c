@@ -175,7 +175,6 @@ int main() {
             t->ranges = r;
         }
         append_table(i, t);
-        //ch = read_char();
     }
     int result = eval(i);
     printf("%d\n", result);
