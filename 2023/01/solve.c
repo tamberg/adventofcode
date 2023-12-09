@@ -24,7 +24,7 @@ char read_char() {
 }
 
 int main(void) {
-    int sum = 0;
+    int result = 0;
     char ch = read_char();
     while (ch != 0) {
         int n;
@@ -38,10 +38,10 @@ int main(void) {
             }
             ch = read_char();
         }
-        sum += a;
-        sum += n;
+        result += a;
+        result += n;
         ch = read_char();
     }
-    printf("%d\n", sum);
+    printf("%d\n", result);
     return 0;
 }
